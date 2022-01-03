@@ -1,10 +1,10 @@
-const mysql = require('mysql2')
+const mysql = require('mysql')
 
 const conexao = mysql.createConnection({
-    host: 'LocalHost',
+    host: 'localhost',
     port: 3306,
     user: 'root',
-    password: 'admin',
+    password: 'senha',
     database: 'agenda-petshop'
 })
 
