@@ -1,9 +1,5 @@
 const fs = require('fs')
 
-fs.readFile('C:\\Users\\Administrador\\Desktop\\Codigos\\Codigos estagio\\NodeJS\\NodeJS1\\assets\\salsicha.jpg', (erro, buffer) => {
-    console.log("imagem buffada")
-    
-    fs.writeFile('C:\\Users\\Administrador\\Desktop\\Codigos\\Codigos estagio\\NodeJS\\NodeJS1\\assets\\salsicha2.jpg', buffer, (erro) => {
-        console.log("imagem escrita")
-    })
-})
+fs.createReadStream('C:\\Users\\Administrador\\Desktop\\Codigos\\Codigos estagio\\NodeJS\\NodeJS1\\assets\\salsicha.jpg')
+    .pipe(fs.createWriteStream('C:\\Users\\Administrador\\Desktop\\Codigos\\Codigos estagio\\NodeJS\\NodeJS1\\assets\\salsicha-stream.jpg'))
+    .on('finish', () => console.log("imagem escrita"))
