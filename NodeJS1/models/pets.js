@@ -7,7 +7,7 @@ class Pet {
 
         uploadDeArquivo(pet.imagem, pet.nome, (erro, novoCaminho) => {
             if (erro) {
-                res.status(400).json(erro)
+                res.status(400).json({erro})
             } else {
                 const novoPet = {nome: pet.nome, imagem: novoCaminho}
     
