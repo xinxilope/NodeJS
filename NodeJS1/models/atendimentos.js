@@ -1,82 +1,100 @@
 const moment = require('moment')
-const conexao = require('../infraestrutura/database/conexao')
-const crud = require('../infraestrutura/atendimento/crud')
 
-class Atendimento {
-    constructor() {
-        this.dataEhValida = ({data, dataCriacao}) => moment(data).isSameOrAfter(dataCriacao)
-        this.clienteEhValido = ({tamanho}) => tamanho >= 5
-        this.valida = (parametros) => this.validacoes.filter(campo => {
-            const { nome } = campo
-            const parametro = parametros[nome]
-            return !campo.valido(parametro)
-        })
+const conexao = require('../infraestrutura/conexao')
 
-        this.validacoes = [
+class atendimento {
+    adiciona(atendimento, res) {
+        const dataCriacao = moment().format('YYYY-MM-DD HH:MM:SS')
+        const data = moment(atendimento.data, 'DD/MM/YYYY').format('YYYY-MM-DD HH:MM:SS')
+
+        const dataEhValida = moment(data).isSameOrAfter(dataCriacao)
+        const clienteEhValido = atendimento.cliente.length >= 5
+
+        const validacoes = [
             {
                 nome: 'data',
-                valido: this.dataEhValida,
+                valido: dataEhValida,
                 mensagem: 'Data deve ser maior ou igual a data atual'
             },
             {
                 nome: 'cliente',
-                valido: this.clienteEhValido,
-                mensagem: 'Cliente deve ter pelo menos cinco caracteres'
+                valido: clienteEhValido,
+                mensagem: 'Cliente deve ter no minimo 5 caracteres'
             }
         ]
-    }
 
-    adiciona(atendimento) {
-        const dataCriacao = moment().format('YYYY-MM-DD HH:MM:SS')
-        const data = moment(atendimento.data, 'DD/MM/YYYY').format('YYYY-MM-DD HH:MM:SS')
-
-        const parametros = {
-            data: { data, dataCriacao},
-            cliente: { tamanho: atendimento.cliente.length}
-        }
-
-        const erros = this.valida(parametros)
-
+        const erros = validacoes.filter(campo => !campo.valido)
         const existemErros = erros.length
-
         if(existemErros) {
-            return new Promise((resolve, reject) => {
-                reject(erros)
-            })
+            res.status(400).json(erros)
         } else {
+            
             const atendimentoDatado = {...atendimento, dataCriacao, data}
-
-            return crud.adiciona(atendimentoDatado)
-                .then((resultados) => {
-                    const id = resultados.insertedId
-                    return ({ id, ...atendimento })
-                })
+    
+            const sql = 'INSERT INTO Atendimentos SET ?'
+    
+            conexao.query(sql, atendimentoDatado, (erro, resultados) => {
+                if (erro) {
+                    res.status(400).json(erro)
+                } else {
+                    res.status(201).json(atendimento)
+                }
+            })
         }
+
     }
 
-    lista(cliente) {
-        return crud.lista()
+    lista(res) {
+        const sql = 'SELECT * FROM Atendimentos'
+
+        conexao.query(sql, (erro, resultados) => {
+            if(erro) {
+                res.status(400).json(erro)
+            } else {
+                res.status(200).json(resultados)
+            }
+        })
     }
 
-    buscaPorId(id) {
-        const sql = `SELECT * FROM Atendimentos WHERE id=${id}`
+    buscaPorId(id, res) {
+        const sql = `SELECT * FROM Atendimentos WHERE id = ${id}`
 
-        return crud.buscaPorId(id)
+        conexao.query(sql, (erro, resultados) => {
+            const atendimento = resultados[0]
+            if(erro) {
+                res.status(400).json(erro)
+            } else {
+                res.status(200).json(atendimento)
+            }
+        })
     }
 
-    altera(id, valores) {
+    altera(id, valores, res) {
         if(valores.data) {
             valores.data = moment(valores.data, 'DD/MM/YYYY').format('YYYY-MM-DD HH:MM:SS')
-        }      
-        
-        return crud.altera(id, valores)
-            .then(() => ({id, ...valores}))
+        }
+        const sql = 'UPDATE Atendimentos SET ? WHERE id=?'
+
+        conexao.query(sql, [valores, id], (erro, resultados) => {
+            if (erro) {
+                res.status(400).json(erro)
+            } else {
+                res.status(200).json({...valores, id})
+            }
+        })
     }
 
-    deleta(id) {
-        return crud.deleta(id)
-            .then(() => id)
+    deleta(id, res) {
+        const sql = 'DELETE FROM Atendimentos WHERE id=?'
+
+        conexao.query(sql, id, (erro, resultados) => {
+            if(erro) {
+                res.status(400).json(erro)
+            } else {
+                res.status(200).json({id})
+            }
+        })
     }
 }
 
-module.exports = new Atendimento
+module.exports = new atendimento
