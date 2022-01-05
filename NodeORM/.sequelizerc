@@ -1,5 +1,6 @@
 const path = require('path');
 
+//mostrando pro sequelize onde estao os arquivos criados por padrao
 module.exports = {
   'config': path.resolve('/api/config', 'config.json'),
   'models-path': path.resolve('./api/models'),
