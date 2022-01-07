@@ -1,7 +1,7 @@
 const database = require('../models/index')
 
 class PessoaController {
-    static async pegaTodasAsPessoas(req, res) {
+    static async pegaTodasAsPessoas(req, res) { //static serve para nao precisar instanciar novamente a classe PessoaController
         try {
             const todasAsPessoas = await database.Pessoas.findAll() //async para achar todas as pessoas na database
             return res.status(200).json(todasAsPessoas) //retorna todasAsPessoas em JSON com status 200
