@@ -19,6 +19,16 @@ class PessoaController {
             return res.status(500).json(error.message) //caso tenha erro devolve o erro
         }
     }
+
+    static async criaPessoa(req, res){
+        const novaPessoa = req.body //pega as informacoes no body da requisição
+        try {
+            const novaPessoaCriada = await database.Pessoas.create(novaPessoa) //pega as informacoes no body e cria nova pessoa
+            return res.status(200).json(novaPessoaCriada) //retorna a nova pessoa criada
+        } catch (error) {
+            return res.status(500).json(error.message) //caso tenha erro devolve o erro
+        }
+    }
 }
 
 module.exports = PessoaController
