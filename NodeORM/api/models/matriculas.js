@@ -10,8 +10,8 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Matriculas.belongsTo(models.Pessoas) //conectando tabela Matriculas com Pessoas (recebendo)
-      Matriculas.belongsTo(models.Turmas) //conectando tabela Matriculas com Turmas (recebendo)
+      Matriculas.belongsTo(models.Pessoas, {foreignKey: 'estudante_id'}) //conectando tabela Matriculas com Pessoas (recebendo)
+      Matriculas.belongsTo(models.Turmas, {foreignKey: 'turma_id'}) //conectando tabela Matriculas com Turmas (recebendo)
     }
   };
   Matriculas.init({

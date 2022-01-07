@@ -12,8 +12,8 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       Turmas.hasMany(models.Matriculas, {foreignKey: 'turma_id'}) //conectando tabela Turmas com Matriculas
 
-      Turmas.belongsTo(models.Pessoas) //conectando tabela Turmas com Pessoas (recebendo)
-      Turmas.belongsTo(models.Niveis) //conectando tabela Turmas com Niveis (recebendo)
+      Turmas.belongsTo(models.Pessoas, {foreignKey: 'docente_id'}) //conectando tabela Turmas com Pessoas (recebendo)
+      Turmas.belongsTo(models.Niveis, {foreignKey: 'nivel_id'}) //conectando tabela Turmas com Niveis (recebendo)
     }
   };
   Turmas.init({
