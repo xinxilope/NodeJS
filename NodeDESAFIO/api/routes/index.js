@@ -1,9 +1,9 @@
 const bodyParser = require('body-parser')
-const tasks = require('./tasksRoute')
+const notas = require('./notasRoute')
 
 
 module.exports = app => {
     app.use(bodyParser.json())
     
-    app.use(tasks)
+    app.use(notas)
 }
