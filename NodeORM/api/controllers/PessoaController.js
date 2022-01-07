@@ -29,6 +29,18 @@ class PessoaController {
             return res.status(500).json(error.message) //caso tenha erro devolve o erro
         }
     }
+
+    static async atualizaPessoa(req, res){
+        const {id} = req.params //pega o id na rota /pessoas:id
+        const novasInfos = req.body //pega as informacoes para atualizar no body da requisição
+        try {
+            await database.Pessoas.update( novasInfos, { where: {id:Number(id)} } ) //atualiza direto a pessoa com as novasInfos no id informado
+            const pessoaAtualizada = await database.Pessoas.findOne( { where: {id:Number(id)} } ) //procura a pessoa atualizada para retornar
+            return res.status(200).json(pessoaAtualizada) //retorna a pessoa atualizada
+        } catch (error) {
+            return res.status(500).json(error.message) //caso tenha erro devolve o erro
+        }
+    }
 }
 
 module.exports = PessoaController
