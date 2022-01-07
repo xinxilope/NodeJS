@@ -4,7 +4,7 @@ const Notas = require('../controllers/NotasController')
 
 const router = Router()
 
-router.get('/api/project', Notas.bemvindo)
+router.get('/api/project', Notas.listaNota)
 router.post('/api/project', Notas.criaNota)
 
 

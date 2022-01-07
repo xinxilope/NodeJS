@@ -1,8 +1,13 @@
 const database = require('../models/index')
 
 class Notas {
-    static async bemvindo(req, res) {
-        res.status(200).json("bem vindo")
+    static async listaNota(req, res) {
+        const listaTodasNotas = await database.Notas.findAll()
+        try {
+            res.status(200).json(listaTodasNotas)
+        } catch (erro) {
+            return res.status(500).json(erro)
+        }
     }
 
     static async criaNota(req, res) {
