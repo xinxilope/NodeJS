@@ -73,6 +73,16 @@ class Notas {
             return res.status(404).json(error.message)
         }
     }
+
+    static async apagaUmaTask(req, res){ //apaga uma task dentro de uma nota
+        const {notaId, taskId} = req.params
+        try{
+            await database.Tasks.destroy( { where: {nota_id: Number(notaId), id: Number(taskId)} } )
+            return res.status(204).json({})
+        } catch (error) {
+            return res.status(404).json(error.message) //caso tenha erro devolve o erro
+        }
+    }
 }
 
 module.exports = Notas

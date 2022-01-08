@@ -11,6 +11,7 @@ router.get('/api/project/:notaId', Notas.listaTask)
 router.get('/api/project/:notaId/task/:taskId', Notas.listaUmaTask)
 router.put('/api/project/:notaId', Notas.atualizaNota)
 router.delete('/api/project/:notaId', Notas.apagaNota)
+router.delete('/api/project/:notaId/task/:taskId', Notas.apagaUmaTask)
 
 
 
