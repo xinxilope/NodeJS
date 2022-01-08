@@ -4,7 +4,7 @@ class Notas {
     static async listaNota(req, res) {
         const listaTodasNotas = await database.Notas.findAll()
         try {
-            res.status(200).json(listaTodasNotas)
+            return res.status(200).json(listaTodasNotas)
         } catch (erro) {
             return res.status(500).json(erro)
         }
