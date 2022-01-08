@@ -1,7 +1,7 @@
 const database = require('../models/index')
 
 class Notas {
-    static async listaNota(req, res) {
+    static async listaTudo(req, res) {
         const listaTodasNotas = await database.Notas.findAll()
         const listaTodasTasks = await database.Tasks.findAll()
         try {
@@ -39,6 +39,16 @@ class Notas {
             return res.status(201).json(novaTaskCriada)
         } catch (erro) {
             return res.status(500).json(erro)
+        }
+    }
+
+    static async listaUmaTask(req, res){
+        const {notaId, taskId} = req.params
+        try{
+            const UmaTask = await database.Tasks.findOne( { where: {nota_id: Number(notaId), id: Number(taskId)} } )
+            return res.status(200).json(UmaTask)
+        } catch (error) {
+            return res.status(500).json(error.message) //caso tenha erro devolve o erro
         }
     }
 }
