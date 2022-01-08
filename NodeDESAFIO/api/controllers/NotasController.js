@@ -3,8 +3,9 @@ const database = require('../models/index')
 class Notas {
     static async listaNota(req, res) {
         const listaTodasNotas = await database.Notas.findAll()
+        const listaTodasTasks = await database.Tasks.findAll()
         try {
-            return res.status(200).json(listaTodasNotas)
+            return res.status(200).json({listaTodasNotas, listaTodasTasks})
         } catch (erro) {
             return res.status(500).json(erro)
         }
