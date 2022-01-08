@@ -19,6 +19,17 @@ class Notas {
             return res.status(500).json(erro)
         }
     }
+
+    static async criaTask(req, res) {
+        const {notaId} = req.params
+        const novaTask = {...req.body, nota_id: Number(notaId)}
+        try {
+            const novaTaskCriada = await database.Tasks.create(novaTask)
+            return res.status(201).json(novaTaskCriada)
+        } catch (erro) {
+            return res.status(500).json(erro)
+        }
+    }
 }
 
 module.exports = Notas
