@@ -31,7 +31,7 @@ class Notas {
             return res.status(500).json(erro)
         }
     }
-    
+
     static async listaTask(req, res){ //lista todas as tasks de uma nota
         const {notaId} = req.params
         try{
@@ -49,6 +49,18 @@ class Notas {
             return res.status(200).json(UmaTask)
         } catch (error) {
             return res.status(500).json(error.message) //caso tenha erro devolve o erro
+        }
+    }
+
+    static async atualizaNota(req, res){ //atualiza uma nota
+        const {notaId} = req.params
+        const novasInfos = req.body
+        try {
+            await database.Notas.update( novasInfos, { where: {id: Number(notaId)}})
+            const notaAtualizada = await database.Notas.findOne( { where: {id:Number(notaId)} } )
+            return res.status(200).json(notaAtualizada)
+        } catch (error) {
+            return res.status(404).json(error.message)
         }
     }
 }
