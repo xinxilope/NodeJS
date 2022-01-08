@@ -3,22 +3,23 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Notas extends Model {
+  class Tasks extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Notas.hasMany(models.Tasks, {foreignKey: 'nota_id'})
+      Tasks.belongsTo(models.Notas, {foreignKey: 'nota_id'})
     }
   };
-  Notas.init({
+  Tasks.init({
     title: DataTypes.STRING,
-    description: DataTypes.TEXT
+    taskRelevance: DataTypes.INTEGER,
+    completed: DataTypes.BOOLEAN
   }, {
     sequelize,
-    modelName: 'Notas',
+    modelName: 'Tasks',
   });
-  return Notas;
+  return Tasks;
 };
