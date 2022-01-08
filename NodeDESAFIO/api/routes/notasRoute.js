@@ -7,6 +7,7 @@ const router = Router()
 router.get('/api/project', Notas.listaNota)
 router.post('/api/project', Notas.criaNota)
 router.post('/api/project/:notaId/task', Notas.criaTask)
+router.get('/api/project/:notaId', Notas.listaTask)
 
 
 

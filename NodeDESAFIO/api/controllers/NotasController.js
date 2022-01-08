@@ -20,6 +20,16 @@ class Notas {
         }
     }
 
+    static async listaTask(req, res){
+        const {notaId} = req.params
+        try{
+            const todasTaskDaNota = await database.Tasks.findAll( { where: {nota_id: Number(notaId)} } )
+            return res.status(200).json(todasTaskDaNota)
+        } catch (error) {
+            return res.status(500).json(error.message) //caso tenha erro devolve o erro
+        }
+    }
+
     static async criaTask(req, res) {
         const {notaId} = req.params
         const novaTask = {...req.body, nota_id: Number(notaId)}
