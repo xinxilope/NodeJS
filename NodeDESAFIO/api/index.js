@@ -9,6 +9,7 @@ routes(app)
 
 
 
-app.listen(3000, () => console.log('servidor escutando na porta 3000...'))
+const port = 3000
+app.listen(port, () => console.log('servidor escutando na porta 3000...'))
 
 module.exports = app
