@@ -20,8 +20,17 @@ const criaTask = async (req, res) => {
     }
 }
 
-const listaUmaTask = (req, res) => {
-    res.json({id:req.params.id})
+const listaUmaTask = async (req, res) => {
+    try {
+        const {id:taskId} = req.params
+        const umaTask = await Task.findOne({_id:taskId})
+        if (!umaTask) {
+            return res.status(404).json({msg:`Nao existe task com o id: ${taskId}`})
+        }
+        res.status(200).json(umaTask)
+    } catch (error) {
+        res.status(500).json({msg:error})
+    }
 }
 
 const updateTask = (req, res) => {
