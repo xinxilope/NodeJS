@@ -16,7 +16,7 @@ app.get('/hello', (req, res) => {
     res.send("Task manager app")
 })
 
-app.use('/api/v1/tasks', tasks)
+app.use('/api/project', tasks)
 
 
 
