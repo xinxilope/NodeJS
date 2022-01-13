@@ -6,8 +6,6 @@ require('dotenv').config()
 const app = express()
 
 
-
-
 //middleware
 app.use(express.json())
 
@@ -17,8 +15,6 @@ app.get('/hello', (req, res) => {
 })
 
 app.use('/api/project', tasks)
-
-
 
 //port
 const port = 3000
