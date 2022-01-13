@@ -1,12 +1,12 @@
-const getAllTasks = (req, res) => {
+const listaTodasTasks = (req, res) => {
     res.send('get all tasks')
 }
 
-const createTask = (req, res) => {
+const criaTask = (req, res) => {
     res.json(req.body)
 }
 
-const getTask = (req, res) => {
+const listaUmaTask = (req, res) => {
     res.json({id:req.params.id})
 }
 
@@ -21,9 +21,9 @@ const deleteTask = (req, res) => {
 
 
 module.exports = {
-    getAllTasks,
-    createTask,
-    getTask,
+    listaTodasTasks,
+    criaTask,
+    listaUmaTask,
     updateTask,
     deleteTask
 }
