@@ -10,3 +10,7 @@
 ---
 ## NodeDESAFIO:
     Essa pasta contem o projeto finalizado do Desafio1
+
+---
+## NodeDesafioMongo:
+    Essa pasta contem o projeto finalizado do Desafio1 utilizando o banco de dados Mongoose
