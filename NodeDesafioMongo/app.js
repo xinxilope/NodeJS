@@ -10,11 +10,13 @@ const app = express()
 app.use(express.json())
 
 //routes
-app.get('/hello', (req, res) => {
-    res.send("Task manager app")
-})
-
 app.use('/api/project', tasks)
+
+
+
+
+
+
 
 //port
 const port = 3000

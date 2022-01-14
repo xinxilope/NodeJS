@@ -6,7 +6,7 @@ const {listaTodasTasks, criaTask, listaUmaTask, updateTask, deleteTask} = requir
 router.route('/').get(listaTodasTasks)
 router.route('/').post(criaTask)
 router.route('/:id').get(listaUmaTask)
-router.route('/:id').patch(updateTask)
+router.route('/:id').put(updateTask)
 router.route('/:id').delete(deleteTask)
 
 
