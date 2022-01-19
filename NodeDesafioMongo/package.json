@@ -2,13 +2,13 @@
   "dependencies": {
     "dotenv": "^11.0.0",
     "express": "^4.17.2",
+    "joi": "^17.5.0",
     "mongoose": "^6.1.6",
     "nodemon": "^2.0.15"
   },
   "name": "nodedesafiomongo",
   "version": "1.0.0",
   "main": "app.js",
-  "devDependencies": {},
   "scripts": {
     "start": "node ./app.js",
     "dev": "nodemon ./app.js",
