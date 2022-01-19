@@ -3,13 +3,9 @@ const Joi = require('joi');
 module.exports = async (req, res, next) => {  
     try {
         const schema = Joi.object({
-        tittle: Joi.string().required(),
-        description: Joi.string().required(),
-        task: Joi.array().items(Joi.object({
-            tittle: Joi.string().required(),
-            taskRelevance: Joi.number().required(),
-            completed: Joi.boolean().required()
-        }))
+        tittle: Joi.string(),
+        description: Joi.string(),
+        task: Joi.array().items(Joi.object().Joi.string().Joi.number().Joi.boolean())
         });
 
         const { error } = await schema.validate(req.body, { abortEarl: true });
